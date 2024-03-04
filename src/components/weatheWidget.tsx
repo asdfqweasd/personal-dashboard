@@ -8,9 +8,6 @@ interface Location {
 
 interface WeatherResponse {
   current: CurrentWeather;
-  hourly: HourlyWeather[];
-  daily: DailyWeather[];
-  alerts: Alert[];
 }
 interface CurrentWeather {
   weather: WeatherCondition[];
