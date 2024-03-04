@@ -87,9 +87,11 @@ const TaskWrapper = () => {
       </h1>
       <TaskForm addTodo={addTodo} />
       {todos.map((todo) => (
-        <div key={todo.id}>
+        <div key={todo.id} className="mb-2">
           {todo.isEditing ? (
-            <EditTask editTodo={editTask} task={todo} />
+            <div className=" mt-4">
+              <EditTask editTodo={editTask} task={todo} />
+            </div>
           ) : (
             <Tasks
               task={todo}

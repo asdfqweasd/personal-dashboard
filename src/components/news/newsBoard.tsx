@@ -16,7 +16,14 @@ const NewsBoard: React.FC<NewsBoardProps> = ({ category }) => {
     const fetchNews = async () => {
       const response = await fetch(`/api/news?category=${category}`);
       const data = await response.json();
-      setArticles(data.articles);
+      // filter removed article
+      console.log(data.articles);
+      const filteredArticles = data.articles.filter(
+        (article: { title: string }) => article.title !== "[Removed]"
+      );
+      console.log(filteredArticles);
+
+      setArticles(filteredArticles);
     };
 
     fetchNews();
