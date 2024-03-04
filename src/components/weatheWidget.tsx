@@ -38,6 +38,7 @@ const WeatherWidget: React.FC = () => {
           async (position) => {
             const { latitude, longitude } = position.coords;
             // get weather data
+            setLocation({ lat: latitude, lon: longitude });
             await fetchWeather({ lat: latitude, lon: longitude });
           },
           (error) => console.error(error),
@@ -48,8 +49,10 @@ const WeatherWidget: React.FC = () => {
       }
     };
 
-    fetchCurrentLocationWeather();
-  }, []);
+    if (!inputAddress) {
+      fetchCurrentLocationWeather(); // No input address got user location
+    }
+  }, [inputAddress]);
 
   const fetchWeather = async (data: {
     lat?: number;
