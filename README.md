@@ -2,6 +2,7 @@
 
 ## Introduction
 This project is a collection of three responsive web widgets designed to provide a modern and efficient user experience. It includes a weather information widget, a news display application, and a task management application, built using the latest web technology stack.
+&nbsp
 
 **Weather Information Widget**: Enter a city name in the provided input field to view current weather conditions.
 **News Display Application**: Browse through the latest news of different categories using the navigation bar.
