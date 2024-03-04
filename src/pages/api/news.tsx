@@ -8,7 +8,6 @@ export default async function handler(
   const { category = "" } = req.query;
   const apiKey = process.env.NEWS_API_KEY;
   const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`;
-  console.log(url);
 
   try {
     const newsResponse = await axios.get(url);

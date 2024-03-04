@@ -5,3 +5,10 @@
 .nav-item:hover .dropdown {
   display: block;
 }
+html {
+  --line-color: #e5e7eb;
+}
+
+.borderBlack {
+  @apply border border-black/10;
+}

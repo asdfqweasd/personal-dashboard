@@ -15,19 +15,19 @@ const Tasks: React.FC<TasksProps> = ({
   editTodo,
 }) => {
   return (
-    <div className="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 ">
-      <div className="p-2 w-full  sm:w-1/2 ">
-        <div className="bg-gray-100 flex p-4 w-full h-full border-x-gray-200 rounded-lg bg-opacity-80">
-          <span
-            className={`${
-              task.completed
-                ? "text-completed  line-through text-gray-500"
-                : "text-black"
-            } font-medium`}
-            onClick={() => toggleComplete(task.id)}
-          >
-            {task.task}
-          </span>
+    <div className="flex flex-wrap p-4 ps-2 text-sm">
+      <div className="bg-gray-100 flex items-center justify-between p-4 w-full h-full border border-gray-200 rounded-lg bg-opacity-80 shadow-sm hover:shadow-lg transition-shadow duration-300 ease-in-out">
+        <span
+          className={`${
+            task.completed
+              ? "text-completed  line-through text-gray-500"
+              : "text-black"
+          } font-medium`}
+          onClick={() => toggleComplete(task.id)}
+        >
+          {task.task}
+        </span>
+        <div className="flex flex-wrap p-2 w-full  sm:w-1/2 justify-end">
           <svg
             className="h-8 w-8 text-black-500"
             viewBox="0 0 24 24"

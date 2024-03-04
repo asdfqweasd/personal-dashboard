@@ -9,9 +9,7 @@ const EditTask: React.FC<TaskFormProps> = ({ editTodo, task }) => {
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!value.trim()) return;
     editTodo(value, task.id);
-    setValue("");
   };
 
   return (
