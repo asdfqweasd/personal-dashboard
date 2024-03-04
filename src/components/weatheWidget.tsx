@@ -13,42 +13,22 @@ interface WeatherResponse {
   alerts: Alert[];
 }
 interface CurrentWeather {
+  weather: WeatherCondition[];
+  humidity: number;
   dt: number;
   temp: number;
-  weather: WeatherCondition[];
+  wind_speed: number;
 }
-
-interface HourlyWeather {
-  dt: number;
-  temp: number;
-  weather: WeatherCondition[];
-}
-
-interface DailyWeather {
-  dt: number;
-  temp: {
-    day: number;
-    min: number;
-    max: number;
-  };
-  weather: WeatherCondition[];
-}
-
 interface WeatherCondition {
-  main: string;
   description: string;
-}
-
-interface Alert {
-  sender_name: string;
-  event: string;
-  description: string;
+  icon: string;
 }
 
 const WeatherWidget: React.FC = () => {
   const [location, setLocation] = useState<Location | null>(null);
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [inputAddress, setInputAddress] = useState<string>("");
+  const [wicon, setWicon] = useState("./clear_icon");
 
   // Get user location
   useEffect(() => {
@@ -79,6 +59,34 @@ const WeatherWidget: React.FC = () => {
     const response = await axios.post(`/api/weather`, data);
     setWeather(response.data);
   };
+  useEffect(() => {
+    if (weather) {
+      const icon = weather.current.weather[0].icon;
+      if (icon === "01d" || icon === "01n") {
+        setWicon("/clear.png");
+      } else if (icon === "02d" || icon === "02n") {
+        setWicon("/cloud.png");
+      } else if (
+        icon === "03d" ||
+        icon === "03n" ||
+        icon === "04d" ||
+        icon === "04n"
+      ) {
+        setWicon("/drizzle.png");
+      } else if (
+        icon === "09d" ||
+        icon === "09n" ||
+        icon === "10d" ||
+        icon === "10n"
+      ) {
+        setWicon("/rain.png");
+      } else if (icon === "13d" || icon === "13n") {
+        setWicon("/snow.png");
+      } else {
+        setWicon("/clear.png");
+      }
+    }
+  }, [weather]);
 
   const handleSearchClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -94,7 +102,7 @@ const WeatherWidget: React.FC = () => {
 
   return (
     <div>
-      <form className="flex items-center max-w-sm mx-auto">
+      <form className="flex items-center max-w-sm mx-auto w-full ">
         <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
@@ -150,46 +158,38 @@ const WeatherWidget: React.FC = () => {
         </button>
       </form>
       {weather ? (
-        <div>
-          <h2 className="mb-10 mt-4 px-4 text-2xl font-medium sm:text-4xl">
+        <div className="bg-[#a6b7dc] text-white justify-center rounded-2xl  shadow-lg max-w-4xl mx-auto my-8 p-4 sm:p-6 lg:p-8">
+          <h2 className="text-3xl font-medium text-center mb-4 mt-2 sm:mb-6 sm:mt-4 sm:text-4xl">
             Current Weather
           </h2>
-          <p>Temperature: {weather.current.temp}°K</p>
-          <p>Condition: {weather.current.weather[0].description}</p>
-
-          <h2>Hourly Forecast</h2>
-          {weather.hourly.slice(0, 5).map((hour) => (
-            <div key={hour.dt}>
-              <p>Time: {new Date(hour.dt * 1000).toLocaleTimeString()}</p>
-              <p>Temperature: {hour.temp}°K</p>
-              <p>Condition: {hour.weather[0].description}</p>
+          <p className=" text-center text-2xl text-red-700 text-opacity-80 mb-2">
+            Temperature: {Math.floor(weather.current.temp)}°C
+          </p>
+          <h3 className="text-xl text-center mb-2">{inputAddress}</h3>
+          <p className="text-center text-lg mb-4">
+            Condition: {weather.current.weather[0].description}
+          </p>
+          <div className=" flex justify-center mb-4">
+            <img src={wicon} alt="" className="w-20 h-20 sm:w-24 sm:h-24" />
+          </div>
+          <div className="flex justify-between gap-6 mx-auto max-w-4xl px-4">
+            <div className="flex-1">
+              <img src={"./humidity.png"} alt="" className=" mt-2 mx-auto" />
+              <div className="text-center mt-2">
+                <div className="font-bold">{weather.current.humidity}%</div>
+                <div className="text-sm">Humidity</div>
+              </div>
             </div>
-          ))}
-
-          <h2>Daily Forecast</h2>
-          {weather.daily.map((day) => (
-            <div key={day.dt}>
-              <p>Date: {new Date(day.dt * 1000).toDateString()}</p>
-              <p>
-                Temperature: {day.temp.day}°K - {day.temp.min}°K to{" "}
-                {day.temp.max}°K
-              </p>
-              <p>Condition: {day.weather[0].description}</p>
-            </div>
-          ))}
-
-          {weather.alerts && weather.alerts.length > 0 && (
-            <>
-              <h2>Alerts</h2>
-              {weather.alerts.map((alert) => (
-                <div key={alert.event}>
-                  <p>Sender: {alert.sender_name}</p>
-                  <p>Event: {alert.event}</p>
-                  <p>Description: {alert.description}</p>
+            <div className="flex-1">
+              <img src={"./wind.png"} alt="" className="mt-2 mx-auto" />
+              <div className="text-center mt-2">
+                <div className="font-bold">
+                  {weather.current.wind_speed} m/s
                 </div>
-              ))}
-            </>
-          )}
+                <div className="text-sm">Wind Speed</div>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <p>Loading weather data...</p>
