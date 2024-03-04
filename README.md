@@ -2,16 +2,16 @@
 
 ## Introduction
 This project is a collection of three responsive web widgets designed to provide a modern and efficient user experience. It includes a weather information widget, a news display application, and a task management application, built using the latest web technology stack.
-&nbsp
 
-**Weather Information Widget**: Enter a city name in the provided input field to view current weather conditions.&nbsp
-**News Display Application**: Browse through the latest news of different categories using the navigation bar.&nbsp
+
+**Weather Information Widget**: Enter a city name in the provided input field to view current weather conditions.<br>
+**News Display Application**: Browse through the latest news of different categories using the navigation bar.<br>
 **Task Management Application**: Add, edit, mark as complete, or delete tasks.
 
 ## Installation.
-nsure your development environment includes Node.js and npm/yarn. And Node.js version >=18.17.0 is required.&nbsp
-npm install&nbsp
-npm run dev&nbsp
+nsure your development environment includes Node.js and npm/yarn. And Node.js version >=18.17.0 is required.<br>
+npm install<br>
+npm run dev
 
 ## Technical Choices
 
