@@ -51,19 +51,20 @@ const TaskWrapper = () => {
       <h1 className="text-black mb-2 text-2xl">Get Things Done !</h1>
       <TaskForm addTodo={addTodo} />
       {/* display tasks */}
-      {todos.map((todo) =>
-        todo.isEditing ? (
-          <EditTask editTodo={editTask} task={todo} />
-        ) : (
-          <Tasks
-            task={todo}
-            key={todo.id}
-            toggleComplete={toggleComplete}
-            deleteTodo={deleteTodo}
-            editTodo={editTodo}
-          />
-        )
-      )}
+      {todos.map((todo) => (
+        <div>
+          {todo.isEditing ? (
+            <EditTask editTodo={editTask} task={todo} />
+          ) : (
+            <Tasks
+              task={todo}
+              toggleComplete={toggleComplete}
+              deleteTodo={deleteTodo}
+              editTodo={editTodo}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
 };

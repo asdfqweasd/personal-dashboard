@@ -31,10 +31,10 @@ const NewsBoard: React.FC<NewsBoardProps> = ({ category }) => {
         </span>
       </h2>
       <div className="flex flex-wrap justify-center">
-        {articles.map((news, index) => {
+        {articles.map((news) => {
           return (
             <NewsItem
-              key={index}
+              key={news.url}
               title={news.title}
               description={news.description}
               src={news.urlToImage}
